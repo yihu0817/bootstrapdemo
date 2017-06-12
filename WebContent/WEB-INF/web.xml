@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+
+    <!--<servlet>-->
+        <!--<servlet-name>spring</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--&lt;!&ndash; 可以自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如spring-servlet.xml&ndash;&gt;-->
+        <!--<init-param>-->
+          <!--<param-name>contextConfigLocation</param-name>-->
+          <!--<param-value>/WEB-INF/spring-servlet.xml,/WEB-INF/applicationContext.xml</param-value>-->
+        <!--</init-param>-->
+
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>spring</servlet-name>-->
+        <!--<url-pattern>*.do</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.css</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.gif</url-pattern>-->
+
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.jpg</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.html</url-pattern>-->
+    <!--</servlet-mapping>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>default</servlet-name>-->
+        <!--<url-pattern>*.js</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!--&lt;!&ndash; 设置字符编码 &ndash;&gt;-->
+    <!--<filter>-->
+        <!--<filter-name>CharacterEncodingFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>encoding</param-name>-->
+            <!--<param-value>utf-8</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>CharacterEncodingFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <servlet>
+        <servlet-name>jqGridServletForJson</servlet-name>
+        <servlet-class>main.java.com.bean.service.JqGridForJSONServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jqGridServletForJson</servlet-name>
+        <url-pattern>/jqGridServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>bootStrapTableServlet</servlet-name>
+        <servlet-class>main.java.com.bean.service.BootTableTestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bootStrapTableServlet</servlet-name>
+        <url-pattern>/bootstrapTable</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>demoServlet</servlet-name>
+        <servlet-class>xeonmic.action.demoServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>demochangeServlet</servlet-name>
+        <servlet-class>xeonmic.action.demochangeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>demoServlet</servlet-name>
+        <url-pattern>/demoServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>demochangeServlet</servlet-name>
+        <url-pattern>/demochangeServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx   
+    	http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://127.0.0.1:3306/bootstraptest?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+    <!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/jsp/" p:suffix=".jsp"/>
+
+
+    <!-- 自动扫描的包名，如果有多个包，请使用逗号隔开 -->
+    <context:component-scan base-package="main.java.com.*"/>
+
+    <bean id="proxyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingLocations" value="WEB-INF/hibernate-mapping-*.xml"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+
+                <prop key="hibernate.jdbc.fetch_size">30</prop>
+                <prop key="hibernate.jdbc.batch_size">30</prop>
+
+                <prop key="hibernate.c3p0.min_size">50</prop>
+                <prop key="hibernate.c3p0.max_size">200</prop>
+                <prop key="hibernate.c3p0.time_out">1800</prop>
+                <prop key="hibernate.c3p0.max_statement">0</prop>
+                <prop key="hibernate.c3p0.acquire_increment">1</prop>
+                <prop key="hibernate.c3p0.idle_test_period">120</prop>
+                <prop key="hibernate.c3p0.validate">true</prop>
+                <prop key="hibernate.c3p0.maxIdleTime">180</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">-->
+        <!--<property name="transactionManager" ref="transactionManager"/>-->
+        <!--<property name="transactionAttributes">-->
+            <!--<props>-->
+                <!--<prop key="get*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="find*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="load*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="select*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="add*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="save*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="insert*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="create*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="update*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="remove*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="delete*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="clean*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="batch*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="after*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="build*">PROPAGATION_REQUIRED</prop>-->
+                <!--<prop key="import*">PROPAGATION_REQUIRED</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="autoproxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">-->
+        <!--<property name="beanNames">-->
+            <!--<list>-->
+                <!--<value>*Service</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="proxyTargetClass" value="true"/>-->
+        <!--<property name="interceptorNames">-->
+            <!--<list>-->
+                <!--<value>transactionInterceptor</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp"/>
+
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>
+
+

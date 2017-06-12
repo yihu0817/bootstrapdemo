@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="main.java.com.domain.group">
+
+    <class name="main.java.com.domain.group.Group" table="uts_group" dynamic-insert="true" dynamic-update="true">
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name" type="string" length="128" not-null="true" unique="true"/>
+        <property name="uuid" column="uuid" type="string" length="128" not-null="true" unique="true"/>
+        <property name="description" column="description" type="string" length="256"/>
+        <property name="groupType" column="group_type" type="string" length="256"/>
+        <property name="groupCode" column="group_code" type="string" length="256"/>
+
+        <property name="itemCreateTime" column="item_create_time" type="timestamp"/>
+        <property name="lastModifyTime" column="last_modify_time" type="timestamp"/>
+    </class>
+
+</hibernate-mapping>
